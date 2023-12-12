@@ -1,2 +1,20 @@
-<h1>Home</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div class="container">
+  <div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="">
+      <!-- Welcoming Card -->
+      <div class="card shadow-lg bg-white rounded">
+        <div class="card-body text-center">
+          <h1 class="display-4 text-primary mb-3">Welcome to the Task Management System</h1>
+          <br>
+          <h4 class="">To start managing your Tasks Login or Sign Up</h4>
+          <br>
+          <!-- Buttons For Logging In Or Signing Up -->
+          <%= link_to 'Sign Up', new_user_registration_path, class:"btn btn-primary" %>
+          <%= link_to 'Login', new_user_session_path, class:"btn btn-secondary" %>
+        </div>
+      </div>     
+    </div>
+  </div>
+  </div>
+</div>
