@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
-
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :correct_user, only: [:edit, :update, :destroy]
   # GET /tasks or /tasks.json
   def index
     @tasks = Task.all
@@ -12,7 +13,8 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    @task = Task.new
+   # @task = Task.new
+   @task = current_user.tasks.build
   end
 
   # GET /tasks/1/edit
@@ -21,7 +23,8 @@ class TasksController < ApplicationController
 
   # POST /tasks or /tasks.json
   def create
-    @task = Task.new(task_params)
+    #@task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
 
     respond_to do |format|
       if @task.save
@@ -57,6 +60,12 @@ class TasksController < ApplicationController
     end
   end
 
+  def correct_user
+    @task = current_user.tasks.find_by(id: params[:id])
+    redirect_to tasks_path, notice: "Not Authorized To Edit This Task" if @task.nil?
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_task
@@ -65,6 +74,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:title, :description, :due_date, :priority, :completed)
+      params.require(:task).permit(:title, :description, :due_date, :priority, :completed, :user_id)
     end
 end
