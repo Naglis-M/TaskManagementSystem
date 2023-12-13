@@ -7,11 +7,20 @@
         <div class="card-body text-center">
           <h1 class="display-4 text-primary mb-3">Welcome to the Task Management System</h1>
           <br>
-          <h4 class="">To start managing your Tasks Login or Sign Up</h4>
+
           <br>
+
+
+          <% if user_signed_in? %>
+            <h4 class="">You're Signed In</h4>
+            <h4 class="">Head over to the Tasks page</h4>
+          <% else %>
           <!-- Buttons For Logging In Or Signing Up -->
-          <%= link_to 'Sign Up', new_user_registration_path, class:"btn btn-primary" %>
-          <%= link_to 'Login', new_user_session_path, class:"btn btn-secondary" %>
+            <h4 class="">To start managing your Tasks Login or Sign Up</h4>
+            <br>
+            <%= link_to 'Sign Up', new_user_registration_path, class:"btn btn-primary" %>
+            <%= link_to 'Login', new_user_session_path, class:"btn btn-secondary" %>
+          <% end %>
         </div>
       </div>     
     </div>
